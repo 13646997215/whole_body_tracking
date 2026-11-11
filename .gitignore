@@ -47,7 +47,6 @@ artifacts/
 logs/
 wandb/
 outputs/
-urdf/
 exported_models/
 motions/
 *.mp4

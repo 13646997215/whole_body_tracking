@@ -1,0 +1,1643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robot_urdf">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0042469999999999999 1.8e-05 0.048456000000000006"
+        rpy="0 0 0" />
+      <mass
+        value="5.8330000000000002" />
+      <inertia
+        ixx="0.030501812999999996"
+        ixy="5.412e-06"
+        ixz="-0.000237841"
+        iyy="0.029325821999999998"
+        iyz="7.8289999999999991e-06"
+        izz="0.017432458999999997" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="torso_link">
+    <inertial>
+      <origin
+        xyz="-0.002941 -1.5e-05 0.17543200000000003"
+        rpy="0 0 0" />
+      <mass
+        value="11.605" />
+      <inertia
+        ixx="0.16356515099999999"
+        ixy="-0.00011836"
+        ixz="0.0021087549999999999"
+        iyy="0.12150473099999999"
+        iyz="0.0014054129999999999"
+        izz="0.074269745999999998" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/torso_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/torso_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="torso_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.1235"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="torso_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.0943951023931953"
+      upper="2.0943951023931953"
+      effort="94"
+      velocity="2" />
+    <dynamics damping="0.08021409131831525" friction="0.20999999999999999" />
+  </joint>
+  <link
+    name="head_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.036526190000000007 0.00173485 0.046482000000000023"
+        rpy="0 0 0" />
+      <mass
+        value="0.21199999999999999" />
+      <inertia
+        ixx="0.000135136"
+        ixy="1.2749999999999999e-06"
+        ixz="2.9051999999999999e-05"
+        iyy="0.000147276"
+        iyz="-2.6669999999999996e-06"
+        izz="8.8145999999999993e-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0.00033219 -0.00059785 0.38425"
+      rpy="0 0 0" />
+    <parent
+      link="torso_link" />
+    <child
+      link="head_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="1.5707963267948966"
+      effort="9"
+      velocity="3" />
+    <dynamics
+      damping="0.034377467707849392"
+      friction="0.089999999999999997" />
+  </joint>
+  <link
+    name="head_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.050388809999999999 -0.014030149999999998 -0.0015389999999999571"
+        rpy="0 0 0" />
+      <mass
+        value="0.20200000000000001" />
+      <inertia
+        ixx="7.6324999999999999e-05"
+        ixy="1.0083999999999999e-05"
+        ixz="-1.0999999999999999e-08"
+        iyy="8.6358000000000002e-05"
+        iyz="-1.0000000000000001e-09"
+        izz="9.7139999999999995e-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="-0.04 0.01775 0.056"
+      rpy="0 0 0" />
+    <parent
+      link="head_yaw_link" />
+    <child
+      link="head_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.0471975511965976"
+      upper="0.087266462599716474"
+      effort="12"
+      velocity="2" />
+    <dynamics damping="0.0084033809952520737" friction="0.022000000000000002" />
+  </joint>
+  <link
+    name="head_roll_link">
+    <inertial>
+      <origin
+        xyz="0.00098180999999999269 -0.0012241499999999996 0.035351000000000021"
+        rpy="0 0 0" />
+      <mass
+        value="0.19700000000000001" />
+      <inertia
+        ixx="0.00033601200000000001"
+        ixy="-1.1339999999999999e-06"
+        ixz="3.5113999999999996e-05"
+        iyy="0.00021653899999999997"
+        iyz="1.9329999999999996e-05"
+        izz="0.000214312" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/head_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.0675 -0.01775 0"
+      rpy="0 0 0" />
+    <parent
+      link="head_pitch_link" />
+    <child
+      link="head_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="1.5707963267948966"
+      effort="12"
+      velocity="2" />
+    <dynamics damping="0.0084033809952520737" friction="0.022000000000000002" />
+  </joint>
+  <link
+    name="left_shoulder_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.0064219999999999998 0.037969552212730823 -0.0086963388713129364"
+        rpy="0 0 0" />
+      <mass
+        value="0.629" />
+      <inertia
+        ixx="0.00028793999999999998"
+        ixy="-5.979693295800411e-06"
+        ixz="4.5213668384858596e-06"
+        iyy="0.00025895192562883914"
+        iyz="8.5696219207034066e-06"
+        izz="0.00023159107437116083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.13352 0.29111"
+      rpy="0.087266 0 0" />
+    <parent
+      link="torso_link" />
+    <child
+      link="left_shoulder_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-3.1415926535897931"
+      upper="2.0943951023931953"
+      effort="36"
+      velocity="4" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="left_shoulder_roll_link">
+    <inertial>
+      <origin
+        xyz="-0.032954999999999998 0.0040302603159542427 -0.05973992044618931"
+        rpy="0 0 0" />
+      <mass
+        value="0.56799999999999995" />
+      <inertia
+        ixx="0.00050164100000000004"
+        ixy="-7.2000000000000009e-07"
+        ixz="1.4313999999999999e-05"
+        iyy="0.00059571299999999988"
+        iyz="8.2169999999999943e-06"
+        izz="0.00024846899999999997" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.03225 0.0385 -0.008"
+      rpy="-0.087266 0 0" />
+    <parent
+      link="left_shoulder_pitch_link" />
+    <child
+      link="left_shoulder_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="2.6179938779914944"
+      effort="36"
+      velocity="3" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="left_shoulder_yaw_link">
+    <inertial>
+      <origin
+        xyz="0.0047350000000000005 0.0052636603159542383 -0.075439920446189274"
+        rpy="0 0 0" />
+      <mass
+        value="0.754" />
+      <inertia
+        ixx="0.001157279"
+        ixy="-1.4595999999999999e-05"
+        ixz="9.2567999999999999e-05"
+        iyy="0.0012046579999999999"
+        iyz="7.1668000000000006e-05"
+        izz="0.00038663400000000001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_shoulder_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0325 0.0037916 -0.0968"
+      rpy="0 0 0" />
+    <parent
+      link="left_shoulder_roll_link" />
+    <child
+      link="left_shoulder_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="36"
+      velocity="4" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="left_elbow_link">
+    <inertial>
+      <origin
+        xyz="0.067477519286373383 0.0047293103645351664 -0.02897332231251426"
+        rpy="0 0 0" />
+      <mass
+        value="0.50600000000000001" />
+      <inertia
+        ixx="0.00015145611987760755"
+        ixy="-2.861056492108641e-06"
+        ixz="0.00010465201700984418"
+        iyy="0.00034113086502412154"
+        iyz="2.0552569020766092e-06"
+        izz="0.00030485901509827082" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_elbow_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_elbow_joint"
+    type="revolute">
+    <origin
+      xyz="0.0085 0.03225 -0.092"
+      rpy="-1.5708 1.0472 0" />
+    <parent
+      link="left_shoulder_yaw_link" />
+    <child
+      link="left_elbow_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="0.55623643261059286"
+      effort="36"
+      velocity="5" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="left_wrist_link">
+    <inertial>
+      <origin
+        xyz="0.00079643074059970731 -2.1071312778953022e-05 0.068473656503986791"
+        rpy="0 0 0" />
+      <mass
+        value="0.75800000000000001" />
+      <inertia
+        ixx="0.0012041275931470915"
+        ixy="6.9886430857112246e-07"
+        ixz="1.7562263229890764e-08"
+        iyy="0.0011106420068851793"
+        iyz="2.3716637305306015e-07"
+        izz="0.000371748399967729" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_wrist_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_wrist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wrist_joint"
+    type="revolute">
+    <origin
+      xyz="0.0992 0.0037916 -0.0325"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="left_elbow_link" />
+    <child
+      link="left_wrist_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="36"
+      velocity="5" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="left_hand_link" />
+  <joint
+    name="left_hand_joint"
+    type="fixed">
+    <origin
+      xyz="0.00076583 0 0.17773"
+      rpy="0 0 0" />
+    <parent
+      link="left_wrist_link" />
+    <child
+      link="left_hand_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_shoulder_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.0064219999999999998 -0.037969552212730823 -0.0086963388713129364"
+        rpy="0 0 0" />
+      <mass
+        value="0.629" />
+      <inertia
+        ixx="0.00028793999999999998"
+        ixy="5.979693295800411e-06"
+        ixz="4.5213668384858596e-06"
+        iyy="0.00025895192562883914"
+        iyz="-8.5696219207034066e-06"
+        izz="0.00023159107437116083" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.13352 0.29111"
+      rpy="-0.087266 0 0" />
+    <parent
+      link="torso_link" />
+    <child
+      link="right_shoulder_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-3.1415926535897931"
+      upper="2.0943951023931953"
+      effort="36"
+      velocity="4" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="right_shoulder_roll_link">
+    <inertial>
+      <origin
+        xyz="-0.032954999999999998 -0.0040302603159542427 -0.05973992044618931"
+        rpy="0 0 0" />
+      <mass
+        value="0.56799999999999995" />
+      <inertia
+        ixx="0.00050164100000000004"
+        ixy="7.2000000000000009e-07"
+        ixz="1.4313999999999999e-05"
+        iyy="0.00059571299999999988"
+        iyz="-8.2169999999999943e-06"
+        izz="0.00024846899999999997" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.03225 -0.0385 -0.008"
+      rpy="0.087266 0 0" />
+    <parent
+      link="right_shoulder_pitch_link" />
+    <child
+      link="right_shoulder_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="1.5707963267948966"
+      effort="36"
+      velocity="3" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="right_shoulder_yaw_link">
+    <inertial>
+      <origin
+        xyz="0.0047350000000000005 -0.0052636603159542383 -0.075439920446189274"
+        rpy="0 0 0" />
+      <mass
+        value="0.754" />
+      <inertia
+        ixx="0.001157279"
+        ixy="1.4595999999999999e-05"
+        ixz="9.2567999999999999e-05"
+        iyy="0.0012046579999999999"
+        iyz="-7.1668000000000006e-05"
+        izz="0.00038663400000000001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_shoulder_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0325 -0.0037916 -0.0968"
+      rpy="0 0 0" />
+    <parent
+      link="right_shoulder_roll_link" />
+    <child
+      link="right_shoulder_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="36"
+      velocity="4" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="right_elbow_link">
+    <inertial>
+      <origin
+        xyz="0.067477519286373383 0.0047290975144968078 0.028973357055186333"
+        rpy="0 0 0" />
+      <mass
+        value="0.50600000000000001" />
+      <inertia
+        ixx="0.00015145611987760755"
+        ixy="-2.8602876753855201e-06"
+        ixz="-0.00010465203802551476"
+        iyy="0.0003411308952196845"
+        iyz="-2.0549904339662627e-06"
+        izz="0.00030485898490270781" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_elbow_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_elbow_joint"
+    type="revolute">
+    <origin
+      xyz="0.0085 -0.03225 -0.092"
+      rpy="-1.5708 1.0472 0" />
+    <parent
+      link="right_shoulder_yaw_link" />
+    <child
+      link="right_elbow_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="0.55623643261059286"
+      effort="36"
+      velocity="5" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="right_wrist_link">
+    <inertial>
+      <origin
+        xyz="0.00079619182549790779 2.1608054873445415e-05 0.068473656346339146"
+        rpy="0 0 0" />
+      <mass
+        value="0.75800000000000001" />
+      <inertia
+        ixx="0.0012041276034103329"
+        ixy="-6.9817739597235771e-07"
+        ixz="1.7569157129438887e-08"
+        iyy="0.001110641993097405"
+        iyz="-2.4259447941912402e-07"
+        izz="0.00037174840349226199" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_wrist_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_wrist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wrist_joint"
+    type="revolute">
+    <origin
+      xyz="0.0992 0.0037916 0.0325"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="right_elbow_link" />
+    <child
+      link="right_wrist_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="36"
+      velocity="5" />
+    <dynamics damping="0.036287327024952139" friction="0.095000000000000001" />
+  </joint>
+  <link
+    name="right_hand_link" />
+  <joint
+    name="right_hand_joint"
+    type="fixed">
+    <origin
+      xyz="0.00076583 0 0.17773"
+      rpy="0 0 0" />
+    <parent
+      link="right_wrist_link" />
+    <child
+      link="right_hand_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_hip_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.011462 0.07375000000000001 -0.029333999999999999"
+        rpy="0 0 0" />
+      <mass
+        value="1.478" />
+      <inertia
+        ixx="0.0035367979999999994"
+        ixy="-3.4082999999999999e-05"
+        ixz="1.7609999999999999e-05"
+        iyy="0.0022141829999999998"
+        iyz="0.00019191099999999999"
+        izz="0.0024573439999999998" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.062 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_hip_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0943951023931953"
+      upper="1.5707963267948966"
+      effort="122"
+      velocity="4" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="left_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0038950000000000096 4.9999999999772449e-06 -0.084319000000000005"
+        rpy="0 0 0" />
+      <mass
+        value="2.1120000000000001" />
+      <inertia
+        ixx="0.0064353559999999997"
+        ixy="9.2200000000000002e-07"
+        ixz="-0.001058479"
+        iyy="0.0062636209999999996"
+        iyz="1.5e-06"
+        izz="0.0037867769999999999" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.0355 0.078 -0.032288"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_pitch_link" />
+    <child
+      link="left_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.13962634015954636"
+      upper="1.5707963267948966"
+      effort="122"
+      velocity="3" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="left_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.038488000000000001 -0.0061589999999999978 -0.10182800000000003"
+        rpy="0 0 0" />
+      <mass
+        value="3.0720000000000001" />
+      <inertia
+        ixx="0.016691801999999999"
+        ixy="-0.00087824400000000003"
+        ixz="-0.0068235149999999996"
+        iyy="0.022494786999999999"
+        iyz="-0.0010879209999999999"
+        izz="0.010990991" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="-0.004 0 -0.13685"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_roll_link" />
+    <child
+      link="left_hip_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="94"
+      velocity="3" />
+    <dynamics damping="0.08021409131831525" friction="0.20999999999999999" />
+  </joint>
+  <link
+    name="left_knee_link">
+    <inertial>
+      <origin
+        xyz="0.011948000000000007 -0.0049079999999999957 -0.13169700000000001"
+        rpy="0 0 0" />
+      <mass
+        value="2.1080000000000001" />
+      <inertia
+        ixx="0.013520618"
+        ixy="6.1935999999999998e-05"
+        ixz="0.00014116999999999998"
+        iyy="0.013761892"
+        iyz="-0.00082973699999999988"
+        izz="0.0011829449999999999" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_knee_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_knee_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_knee_joint"
+    type="revolute">
+    <origin
+      xyz="-0.085 0.0085 -0.1595"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_yaw_link" />
+    <child
+      link="left_knee_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="2.0943951023931953"
+      effort="122"
+      velocity="5" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="left_ankle_pitch_link">
+    <inertial>
+      <origin
+        xyz="-0.034159000000000009 0 -0.012221999999999955"
+        rpy="0 0 0" />
+      <mass
+        value="0.090999999999999998" />
+      <inertia
+        ixx="1.1744999999999999e-05"
+        ixy="0"
+        ixz="-3.8630000000000001e-06"
+        iyy="2.2974000000000001e-05"
+        iyz="0"
+        izz="1.3207000000000001e-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_ankle_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_ankle_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.02 -0.0085 -0.3"
+      rpy="0 0 0" />
+    <parent
+      link="left_knee_link" />
+    <child
+      link="left_ankle_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.87266462599716477"
+      upper="0.52359877559829882"
+      effort="75"
+      velocity="4" />
+    <dynamics damping="0.049656342244671345" friction="0.13" />
+  </joint>
+  <link
+    name="left_ankle_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0094349999999999989 1.0000000000010001e-06 -0.012996999999999925"
+        rpy="0 0 0" />
+      <mass
+        value="0.35099999999999998" />
+      <inertia
+        ixx="0.00014962299999999999"
+        ixy="1.4e-08"
+        ixz="0.000132812"
+        iyy="0.00097694899999999996"
+        iyz="5.0000000000000001e-09"
+        izz="0.0010259900000000001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_ankle_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/left_ankle_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0178 0 -0.02"
+      rpy="0 0 0" />
+    <parent
+      link="left_ankle_pitch_link" />
+    <child
+      link="left_ankle_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.26179938779914941"
+      upper="0.26179938779914941"
+      effort="75"
+      velocity="3" />
+    <dynamics damping="0.049656342244671345" friction="0.13" />
+  </joint>
+  <link
+    name="left_foot_contact_link" />
+  <joint
+    name="left_foot_contact_joint"
+    type="fixed">
+    <origin
+      xyz="0.018215 0 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="left_ankle_roll_link" />
+    <child
+      link="left_foot_contact_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_hip_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.011462 -0.07375000000000001 -0.029333999999999999"
+        rpy="0 0 0" />
+      <mass
+        value="1.478" />
+      <inertia
+        ixx="0.0035367979999999994"
+        ixy="3.4082999999999999e-05"
+        ixz="1.7609999999999999e-05"
+        iyy="0.0022141829999999998"
+        iyz="-0.00019191099999999999"
+        izz="0.0024573439999999998" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.062 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_hip_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.0943951023931953"
+      upper="1.5707963267948966"
+      effort="122"
+      velocity="4" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="right_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0038950000000000096 -4.9999999999772449e-06 -0.084319000000000005"
+        rpy="0 0 0" />
+      <mass
+        value="2.1120000000000001" />
+      <inertia
+        ixx="0.0064353559999999997"
+        ixy="-9.2200000000000002e-07"
+        ixz="-0.001058479"
+        iyy="0.0062636209999999996"
+        iyz="-1.5e-06"
+        izz="0.0037867769999999999" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.0355 -0.078 -0.032288"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_pitch_link" />
+    <child
+      link="right_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-1.5707963267948966"
+      upper="0.13962634015954636"
+      effort="122"
+      velocity="3" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="right_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.038488000000000001 0.0061589999999999978 -0.10182800000000003"
+        rpy="0 0 0" />
+      <mass
+        value="3.0720000000000001" />
+      <inertia
+        ixx="0.016691801999999999"
+        ixy="0.00087824400000000003"
+        ixz="-0.0068235149999999996"
+        iyy="0.022494786999999999"
+        iyz="0.0010879209999999999"
+        izz="0.010990991" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="-0.004 0 -0.13685"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_roll_link" />
+    <child
+      link="right_hip_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.6179938779914944"
+      upper="2.6179938779914944"
+      effort="94"
+      velocity="3" />
+    <dynamics damping="0.08021409131831525" friction="0.20999999999999999" />
+  </joint>
+  <link
+    name="right_knee_link">
+    <inertial>
+      <origin
+        xyz="0.011948000000000007 0.0049079999999999957 -0.13169700000000001"
+        rpy="0 0 0" />
+      <mass
+        value="2.1080000000000001" />
+      <inertia
+        ixx="0.013520618"
+        ixy="-6.1935999999999998e-05"
+        ixz="0.00014116999999999998"
+        iyy="0.013761892"
+        iyz="0.00082973699999999988"
+        izz="0.0011829449999999999" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_knee_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_knee_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_knee_joint"
+    type="revolute">
+    <origin
+      xyz="-0.085 -0.0085 -0.1595"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_yaw_link" />
+    <child
+      link="right_knee_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="2.0943951023931953"
+      effort="122"
+      velocity="5" />
+    <dynamics damping="0.076394372684109771" friction="0.20000000000000001" />
+  </joint>
+  <link
+    name="right_ankle_pitch_link">
+    <inertial>
+      <origin
+        xyz="-0.034159000000000009 0 -0.012221999999999955"
+        rpy="0 0 0" />
+      <mass
+        value="0.090999999999999998" />
+      <inertia
+        ixx="1.1744999999999999e-05"
+        ixy="0"
+        ixz="-3.8630000000000001e-06"
+        iyy="2.2974000000000001e-05"
+        iyz="0"
+        izz="1.3207000000000001e-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_ankle_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_ankle_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.02 0.0085 -0.3"
+      rpy="0 0 0" />
+    <parent
+      link="right_knee_link" />
+    <child
+      link="right_ankle_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-0.87266462599716477"
+      upper="0.52359877559829882"
+      effort="75"
+      velocity="4" />
+    <dynamics damping="0.049656342244671345" friction="0.13" />
+  </joint>
+  <link
+    name="right_ankle_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0094349999999999989 -1.0000000000287557e-06 -0.012996999999999925"
+        rpy="0 0 0" />
+      <mass
+        value="0.35099999999999998" />
+      <inertia
+        ixx="0.00014962299999999999"
+        ixy="-1.4e-08"
+        ixz="0.000132812"
+        iyy="0.00097694899999999996"
+        iyz="-5.0000000000000001e-09"
+        izz="0.0010259900000000001" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0.28000000000000003 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_ankle_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0.28000000000000003 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="/home/hanhan/Desktop/urdf/meshes/right_ankle_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0178 0 -0.02"
+      rpy="0 0 0" />
+    <parent
+      link="right_ankle_pitch_link" />
+    <child
+      link="right_ankle_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.26179938779914941"
+      upper="0.26179938779914941"
+      effort="75"
+      velocity="3" />
+    <dynamics damping="0.049656342244671345" friction="0.13" />
+  </joint>
+  <link
+    name="right_foot_contact_link" />
+  <joint
+    name="right_foot_contact_joint"
+    type="fixed">
+    <origin
+      xyz="0.018215 0 -0.025"
+      rpy="0 0 0" />
+    <parent
+      link="right_ankle_roll_link" />
+    <child
+      link="right_foot_contact_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
