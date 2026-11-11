@@ -42,3 +42,14 @@ _build
 
 **/assets/
 artifacts/
+
+# 本地新增：公开仓库只保留代码与配置，以下内容保留在本地
+logs/
+wandb/
+outputs/
+urdf/
+exported_models/
+motions/
+*.mp4
+*.pt
+*.onnx
