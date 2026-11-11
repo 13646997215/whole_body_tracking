@@ -160,3 +160,80 @@ Below is an overview of the code structure for this repository:
   Includes utility scripts for preprocessing motion data, training policies, and evaluating trained policies.
 
 This structure is designed to ensure modularity and ease of navigation for developers expanding the project.
+
+## Custom Humanoid Extension (This Fork)
+
+This fork adds a custom 26-DoF humanoid and three task families on top of the original BeyondMimic tracking code:
+
+| Task | Gym ID | Description |
+| --- | --- | --- |
+| Dance tracking | `CustomHumanoid-Tracking-Flat-v0` | Motion imitation from a local `.npz` motion file |
+| Velocity locomotion | `CustomHumanoid-Velocity-Flat-v0` / `-Rough-v0` / `-Stairs-v0` | Flat / rough terrain / 12 cm stairs walking |
+| Fall recovery | `CustomHumanoid-FallRecovery-v0` | Stand up from prone/supine and remain upright |
+
+### Assets
+
+Robot assets are intentionally not committed to keep the repository lightweight.
+Place the custom humanoid asset package at:
+
+```
+source/whole_body_tracking/whole_body_tracking/assets/custom_robot/
+├── robot_urdf.usd
+├── robot_urdf.urdf
+├── config.yaml
+├── configuration/   # robot_urdf_base.usd, physics and sensor layers
+└── meshes/          # STL/OBJ link meshes
+```
+
+The Unitree description meshes used by the original G1 tasks live in
+`source/whole_body_tracking/whole_body_tracking/assets/unitree_description/`.
+
+### Usage
+
+Training (requires Isaac Lab v2.1.0 activated in the current Python environment):
+
+```bash
+# Dance tracking from a local motion file
+python scripts/rsl_rl/train.py --task CustomHumanoid-Tracking-Flat-v0 \
+    --motion_file motions/custom_humanoid_dance1.npz --num_envs 4096 --headless
+
+# Locomotion / stairs / fall recovery
+python scripts/train_locomotion.py --task CustomHumanoid-Velocity-Stairs-v0 --num_envs 1024 --headless
+python scripts/train_locomotion.py --task CustomHumanoid-FallRecovery-v0 --num_envs 1024 --headless
+```
+
+Playback:
+
+```bash
+python scripts/rsl_rl/play.py --task CustomHumanoid-Tracking-Flat-Play-v0 \
+    --checkpoint exported_models/custom_humanoid/custom_humanoid_tracking_final.pt
+python scripts/play_locomotion.py --task CustomHumanoid-Velocity-Stairs-Play-v0 \
+    --checkpoint exported_models/custom_humanoid/custom_humanoid_stairs_final.pt
+```
+
+### Utility Scripts
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/train_locomotion.py` | Train velocity / stairs / fall-recovery policies |
+| `scripts/play_locomotion.py` | Play locomotion checkpoints with configurable camera |
+| `scripts/test_custom_robot.py` | Spawn the custom humanoid and validate the asset |
+| `scripts/convert_custom_robot_npz.py` | Convert a dance CSV into the robot's `.npz` format |
+| `scripts/replay_npz.py` | Replay a converted motion in Isaac Sim |
+| `scripts/diagnose_tracking.py` | Evaluate tracking RMSE and survival |
+| `scripts/diagnose_fall_recovery.py` | Evaluate fall-recovery telemetry |
+| `scripts/diagnose_telemetry.py` | Generic telemetry evaluation |
+| `scripts/debug_fall_breakdown.py` | Break down fall/recovery failure modes |
+| `scripts/run_continuous_pipeline.py` | Run stairs → fall recovery → tracking sequentially |
+| `scripts/continuous_overhaul_suite.py` | Continuous training/export/verification suite |
+| `scripts/autonomous_iterate_and_verify.py` | Autonomous train → diagnose iteration loop |
+
+`run_continuous_pipeline.py`, `continuous_overhaul_suite.py`, and
+`autonomous_iterate_and_verify.py` use the current Python interpreter and the
+repository root by default. Override them with the `PYTHON_BIN` and
+`WBT_WORKSPACE` environment variables.
+
+### Notes
+
+- `logs/`, `wandb/`, `outputs/`, `exported_models/`, `urdf/`, `motions/`, and `*.mp4` are ignored by git.
+- The original BeyondMimic documentation above applies to the G1 tracking pipeline.
