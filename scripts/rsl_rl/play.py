@@ -20,11 +20,20 @@ parser.add_argument(
 parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument("--motion_file", type=str, default=None, help="Path to the motion file.")
+parser.add_argument("--camera_eye", nargs=3, type=float, default=[-2.8, -2.4, 1.3], help="Camera eye position (x, y, z).")
+parser.add_argument("--camera_target", nargs=3, type=float, default=[0.5, 0.0, 0.1], help="Camera target/lookat position (x, y, z).")
+parser.add_argument("--env_index", type=int, default=1, help="Environment index (1-based, matching IsaacLab UI).")
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
 args_cli, hydra_args = parser.parse_known_args()
+
+# Default to performance rendering mode to eliminate RTX Ray-Tracing shader stalls
+if args_cli.rendering_mode is None:
+    args_cli.rendering_mode = "performance"
+    args_cli.rendering_mode_explicit = True
+
 # always enable cameras to record video
 if args_cli.video:
     args_cli.enable_cameras = True
@@ -106,9 +115,28 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             env_cfg.commands.motion.motion_file = str(pathlib.Path(art.download()) / "motion.npz")
 
     else:
-        print(f"[INFO] Loading experiment from directory: {log_root_path}")
-        resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
+        if args_cli.checkpoint and os.path.exists(args_cli.checkpoint):
+            resume_path = os.path.abspath(args_cli.checkpoint)
+        elif hasattr(agent_cfg, "load_checkpoint") and os.path.exists(str(agent_cfg.load_checkpoint)):
+            resume_path = os.path.abspath(str(agent_cfg.load_checkpoint))
+        else:
+            print(f"[INFO] Loading experiment from directory: {log_root_path}")
+            resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
+
+    if args_cli.motion_file is not None:
+        print(f"[INFO]: Using motion file from CLI: {args_cli.motion_file}")
+        env_cfg.commands.motion.motion_file = args_cli.motion_file
+
+    # Configure viewer camera according to recording requirements:
+    # Environment Index: 1, Follow Mode: Robot, Camera Eye: (-2.8, -2.4, 1.3), Camera Target: (0.5, 0.0, 0.1)
+    if hasattr(env_cfg, "viewer"):
+        env_cfg.viewer.origin_type = "asset_root"
+        env_cfg.viewer.asset_name = "robot"
+        env_cfg.viewer.env_index = max(0, args_cli.env_index - 1)
+        env_cfg.viewer.eye = tuple(args_cli.camera_eye)
+        env_cfg.viewer.lookat = tuple(args_cli.camera_target)
+        print(f"[INFO] Viewer Camera Configured: Follow={env_cfg.viewer.asset_name}, Eye={env_cfg.viewer.eye}, Target={env_cfg.viewer.lookat}, EnvIndex={args_cli.env_index}")
 
     # create isaac environment
     env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
@@ -141,19 +169,22 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # obtain the trained policy for inference
     policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
 
-    # export policy to onnx/jit
+    # export policy to onnx/jit if applicable
     export_model_dir = os.path.join(os.path.dirname(resume_path), "exported")
-
-    export_motion_policy_as_onnx(
-        env.unwrapped,
-        ppo_runner.alg.policy,
-        normalizer=ppo_runner.obs_normalizer,
-        path=export_model_dir,
-        filename="policy.onnx",
-    )
-    attach_onnx_metadata(env.unwrapped, args_cli.wandb_path if args_cli.wandb_path else "none", export_model_dir)
+    try:
+        if hasattr(env.unwrapped, "command_manager") and "motion" in env.unwrapped.command_manager._terms:
+            export_motion_policy_as_onnx(
+                env.unwrapped,
+                ppo_runner.alg.policy,
+                normalizer=ppo_runner.obs_normalizer,
+                path=export_model_dir,
+                filename="policy.onnx",
+            )
+            attach_onnx_metadata(env.unwrapped, args_cli.wandb_path if args_cli.wandb_path else "none", export_model_dir)
+    except Exception as e:
+        print(f"[INFO] Skipping motion ONNX export: {e}")
     # reset environment
-    obs, _ = env.get_observations()
+    obs, _ = env.reset()
     timestep = 0
     # simulate environment
     while simulation_app.is_running():
@@ -176,5 +207,6 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 if __name__ == "__main__":
     # run the main function
     main()
-    # close sim app
-    simulation_app.close()
+    import sys, os
+    sys.stdout.flush()
+    os._exit(0)

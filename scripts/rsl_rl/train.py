@@ -24,7 +24,8 @@ parser.add_argument("--num_envs", type=int, default=None, help="Number of enviro
 parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
 parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
-parser.add_argument("--registry_name", type=str, required=True, help="The name of the wand registry.")
+parser.add_argument("--registry_name", type=str, default=None, help="The name of the wand registry.")
+parser.add_argument("--motion_file", type=str, default=None, help="Path to local motion .npz file.")
 
 # append RSL-RL cli arguments
 cli_args.add_rsl_rl_args(parser)
@@ -88,17 +89,23 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_cfg.seed = agent_cfg.seed
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
 
-    # load the motion file from the wandb registry
     registry_name = args_cli.registry_name
-    if ":" not in registry_name:  # Check if the registry name includes alias, if not, append ":latest"
-        registry_name += ":latest"
-    import pathlib
+    # load the motion file from local path or wandb registry
+    if hasattr(args_cli, "motion_file") and args_cli.motion_file:
+        env_cfg.commands.motion.motion_file = args_cli.motion_file
+        print(f"[INFO] Using local motion file: {args_cli.motion_file}")
+    elif registry_name:
+        if ":" not in registry_name:  # Check if the registry name includes alias, if not, append ":latest"
+            registry_name += ":latest"
+        import pathlib
+        import wandb
 
-    import wandb
-
-    api = wandb.Api()
-    artifact = api.artifact(registry_name)
-    env_cfg.commands.motion.motion_file = str(pathlib.Path(artifact.download()) / "motion.npz")
+        api = wandb.Api()
+        artifact = api.artifact(registry_name)
+        env_cfg.commands.motion.motion_file = str(pathlib.Path(artifact.download()) / "motion.npz")
+        print(f"[INFO] Using wandb artifact motion file: {env_cfg.commands.motion.motion_file}")
+    else:
+        raise ValueError("Must provide either --motion_file or --registry_name")
 
     # specify directory for logging experiments
     log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
@@ -154,6 +161,28 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     # run training
     runner.learn(num_learning_iterations=agent_cfg.max_iterations, init_at_random_ep_len=True)
 
+    # Export final policy as ONNX and copy to exported_models/
+    try:
+        from isaaclab_rl.rsl_rl.exporter import export_policy_as_onnx
+        export_policy_as_onnx(runner.alg.policy, normalizer=runner.obs_normalizer, path=log_dir, filename="policy.onnx")
+        print(f"[SUCCESS] Exported final policy to ONNX in {log_dir}")
+        export_dst = os.path.abspath("exported_models/custom_humanoid")
+        os.makedirs(export_dst, exist_ok=True)
+        exp_name = agent_cfg.experiment_name
+        pt_files = [f for f in os.listdir(log_dir) if f.startswith("model_") and f.endswith(".pt")]
+        if pt_files:
+            pt_files.sort(key=lambda x: int(x.split("_")[1].split(".")[0]))
+            latest_pt = os.path.join(log_dir, pt_files[-1])
+            import shutil
+            shutil.copy(latest_pt, os.path.join(export_dst, f"{exp_name}_final.pt"))
+            print(f"[SUCCESS] Copied {latest_pt} -> {os.path.join(export_dst, f'{exp_name}_final.pt')}")
+        if os.path.exists(os.path.join(log_dir, "policy.onnx")):
+            import shutil
+            shutil.copy(os.path.join(log_dir, "policy.onnx"), os.path.join(export_dst, f"{exp_name}_final.onnx"))
+            print(f"[SUCCESS] Copied policy.onnx -> {os.path.join(export_dst, f'{exp_name}_final.onnx')}")
+    except Exception as e:
+        print(f"[WARNING] Could not auto-export ONNX/pt: {e}")
+
     # close the simulator
     env.close()
 
@@ -161,5 +190,6 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 if __name__ == "__main__":
     # run the main function
     main()
-    # close sim app
-    simulation_app.close()
+    import sys, os
+    sys.stdout.flush()
+    os._exit(0)
